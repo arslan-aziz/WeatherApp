@@ -1,0 +1,21 @@
+TODO:
+Searchbar
+OWM API call
+GUI Application base
+Current weather text
+Forecast text(+5 days) -->How to organize these elements?
+Current weather icon
+
+
+Frame class event loop
+--Primary action, has there been an update?
+--If yes, pull updated state variables
+    --load icons from disk
+    --make API call
+    --refresh content pane
+What causes updates?
+--Text field action listener/button action listener
+--Timer action listener
+
+
+
