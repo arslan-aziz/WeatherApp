@@ -1,0 +1,28 @@
+<project>
+	<target name="clean">
+		<delete dir="build"/>
+	</target>
+
+	<target name="compile">
+		<mkdir dir="build/classes"/>
+		<javac srcdir="src" destdir="build/classes">
+			<classpath>
+				<pathelement path="lib/owm-japis-2.5.2.3.jar"/>
+			</classpath>
+		</javac>		
+	</target>
+
+	<target name="jar">
+		<mkdir dir="build/jar"/>
+		<jar destfile="build/jar/WeatherApp.jar" basedir="build/classes">
+			<zipgroupfileset dir="lib" includes="*.jar"/>
+			<manifest>
+				<attribute name="Main-Class" value="App.class"/>
+			</manifest>
+		</jar>
+	</target>
+
+	<target name="run">
+		<java jar="build/jar/WeatherApp.jar" fork="true"/>
+	</target>
+</project>
