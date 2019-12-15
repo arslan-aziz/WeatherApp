@@ -4,15 +4,18 @@
 	</target>
 
 	<target name="compile">
+		<record name="build/compileLog.txt" loglevel="verbose" action="start"/>
 		<mkdir dir="build/classes"/>
 		<javac srcdir="src" destdir="build/classes">
 			<classpath>
 				<pathelement path="lib/owm-japis-2.5.2.3.jar"/>
 			</classpath>
-		</javac>		
+		</javac>
+		<record name="build/compileLog.txt" action="stop"/>
 	</target>
 
 	<target name="jar">
+		<record name="build/buildLog.txt" loglevel="verbose" action="start"/>
 		<mkdir dir="build/jar"/>
 		<jar destfile="build/jar/WeatherApp.jar" basedir="build/classes">
 			<zipgroupfileset dir="lib" includes="*.jar"/>
@@ -20,6 +23,7 @@
 				<attribute name="Main-Class" value="App.class"/>
 			</manifest>
 		</jar>
+		<record name="build/buildLog.txt" action="stop"/>
 	</target>
 
 	<target name="run">
