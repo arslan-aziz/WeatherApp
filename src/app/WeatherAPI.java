@@ -13,7 +13,6 @@ public class WeatherAPI {
 
     public WeatherAPI(){
         owm = new OWM(API_KEY);
-
     }
 
     public static WeatherAPI getInstance(){

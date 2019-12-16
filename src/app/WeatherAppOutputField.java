@@ -11,9 +11,9 @@ public class WeatherAppOutputField extends JTextField{
         setEditable(false);
     }
 
-    public static WeatherAppSearchBar getInstance(){
+    public static WeatherAppOutputField getInstance(){
         if(singleton == null){
-            singleton = new WeatherAppSearchBar();
+            singleton = new WeatherAppOutputField();
         }
         return singleton;
     }

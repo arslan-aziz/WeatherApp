@@ -7,7 +7,6 @@ public class WeatherAppSearchButton extends JButton{
 
     private WeatherAppSearchButton(){
         setActionCommand("SearchButton");
-        addActionListener(WeatherAppActionListener.getInstance());
     }
 
     public static WeatherAppSearchButton getInstance(){

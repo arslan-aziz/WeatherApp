@@ -9,7 +9,6 @@ public class WeatherAppSearchBar extends JTextField{
 
     private WeatherAppSearchBar(){
         setActionCommand("SearchBar");
-        addActionListener(WeatherAppActionListener.getInstance());
     }
 
     public static WeatherAppSearchBar getInstance(){

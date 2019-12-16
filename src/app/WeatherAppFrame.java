@@ -15,14 +15,12 @@ public class WeatherAppFrame extends JFrame implements ActionListener{
 
     private static final int WIDTH = 400;
     private static final int HEIGHT = 300;
-    private static final int TIME_DELAY = 1000;
 
     //Content pane elements
     private WeatherAPI weatherAPI = null;
     private WeatherAppSearchBar searchBar = null;
     private WeatherAppSearchButton searchButton = null;
     private WeatherAppOutputField outputField = null;
-    private UpdateTimer updateTimer = null;
 
     //instance variables for contentpane elements which update-->gui de
     private double temperature;
@@ -43,16 +41,15 @@ public class WeatherAppFrame extends JFrame implements ActionListener{
         
         //add text field
         searchBar = WeatherAppSearchBar.getInstance();
+        searchBar.addActionListener(this);
         contentPane.add(searchBar);
 
         searchButton = WeatherAppSearchButton.getInstance();
+        searchButton.addActionListener(this);
         contentPane.add(searchButton);
 
         outputField = WeatherAppOutputField.getInstance();
         contentPane.add(outputField);
-
-        updateTimertimer = UpdateTimer.getInstance();
-        timer.start();
         
         setVisible(true);
     }
@@ -65,10 +62,6 @@ public class WeatherAppFrame extends JFrame implements ActionListener{
                 location = searchBar.getText();
             break;
             case "SearchButton":
-                temperature = weatherAPI.getWeather(location);
-                outputField.setText("The temperature at "+location+" is "+temperature+" degrees Fahrenheit.");
-            break;
-            case "Timer":
                 temperature = weatherAPI.getWeather(location);
                 outputField.setText("The temperature at "+location+" is "+temperature+" degrees Fahrenheit.");
             break;
