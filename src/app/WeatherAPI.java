@@ -6,12 +6,21 @@ import net.aksingh.owmjapis.model.CurrentWeather;
 
 public class WeatherAPI {
 
-    public final static String API_KEY = "474661aa56736c09a66de648d7aee3af";
+    private final static String API_KEY = "474661aa56736c09a66de648d7aee3af";
     private OWM owm;
+    private static WeatherAPI wap = null;
+
 
     public WeatherAPI(){
         owm = new OWM(API_KEY);
 
+    }
+
+    public static WeatherAPI getInstance(){
+        if(wap == null){
+            wap = new WeatherAPI();
+        }
+        return wap;
     }
 
     public double getWeather(String location){
