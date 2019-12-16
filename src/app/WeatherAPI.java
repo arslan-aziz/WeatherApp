@@ -7,6 +7,20 @@ import net.aksingh.owmjapis.model.CurrentWeather;
 public class WeatherAPI {
 
     public final static String API_KEY = "474661aa56736c09a66de648d7aee3af";
+    private OWM owm;
+
+    public WeatherAPI(){
+        owm = new OWM(API_KEY);
+
+    }
+
+    public double getWeather(String location){
+        CurrentWeather cwd = owm.currentWeatherByCityName(location);
+        weather = (cwd.getMainData.getTempMax()+cwd.getMainData.getTempMin())/2.0;
+        return weather;
+    }
+
+
     public static void main(String[] args)
             throws APIException {
     //API test

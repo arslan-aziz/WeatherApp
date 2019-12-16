@@ -7,58 +7,74 @@ import javax.swing.JFrame;
 import java.awt.Container;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 
-public class WeatherAppFrame extends JFrame{
 
-        private static final int WIDTH = 400;
-        private static final int HEIGHT = 300;
-        private static final int TIME_DELAY = 1000;
+public class WeatherAppFrame extends JFrame implements ActionListener{
 
-        private WeatherAppActionListener updateListener = null;
+    private static final int WIDTH = 400;
+    private static final int HEIGHT = 300;
+    private static final int TIME_DELAY = 1000;
 
-        //instance variables for contentpane elements which update-->gui de
-        private int temperature;
-        private String location;
+    //Content pane elements
+    private WeatherAPI weatherAPI = null;
+    private WeatherAppSearchBar searchBar = null;
+    private WeatherAppSearchButton searchButton = null;
+    private WeatherAppOutputField outputField = null;
+    private UpdateTimer updateTimer = null;
 
-        public WeatherAppFrame(){
+    //instance variables for contentpane elements which update-->gui de
+    private double temperature;
+    private String location;
 
-            updateListener = WeatherAppActionListener.getInstance();
+    public WeatherAppFrame(){
 
-            setSize(WIDTH,HEIGHT);
+        weatherAPI = WeatherAPI.getInstance();
 
-            //add listener to close window
-            addWindowListener(WeatherAppCloser.getInstance());
-            
-            //create element container
-            Container contentPane = getContentPane();
-            contentPane.setLayout(new FlowLayout());
-            
-            //add text field
-            WeatherAppSearchBar searchBar = WeatherAppSearchBar.getInstance();
-            contentPane.add(searchBar);
+        setSize(WIDTH,HEIGHT);
 
-            WeatherAppSearchButton searchButton = WeatherAppSearchButton.getInstance();
-            contentPane.add(searchButton);
+        //add listener to close window
+        addWindowListener(WeatherAppCloser.getInstance());
+        
+        //create element container
+        Container contentPane = getContentPane();
+        contentPane.setLayout(new FlowLayout());
+        
+        //add text field
+        searchBar = WeatherAppSearchBar.getInstance();
+        contentPane.add(searchBar);
 
-            WeatherAppOutputField outputField = WeatherAppOutputField.getInstance();
-            contentPane.add(outputField);
+        searchButton = WeatherAppSearchButton.getInstance();
+        contentPane.add(searchButton);
 
-            UpdateTimer timer = UpdateTimer.getInstance();
-            timer.start();
+        outputField = WeatherAppOutputField.getInstance();
+        contentPane.add(outputField);
 
-            updateState();
+        updateTimertimer = UpdateTimer.getInstance();
+        timer.start();
+        
+        setVisible(true);
+    }
+
+    public void actionPerformed(ActionEvent e){
+        String source = e.getActionCommand();
+        //cases: timer,search button, text field
+        switch(source){
+            case "SearchBar":
+                location = searchBar.getText();
+            break;
+            case "SearchButton":
+                temperature = weatherAPI.getWeather(location);
+                outputField.setText("The temperature at "+location+" is "+temperature+" degrees Fahrenheit.");
+            break;
+            case "Timer":
+                temperature = weatherAPI.getWeather(location);
+                outputField.setText("The temperature at "+location+" is "+temperature+" degrees Fahrenheit.");
+            break;
+            default:
+                System.out.println("Not a recognizable action event: "+source);
+            break;
         }
-
-        private void updateState(){
-            while(true){
-                if(updateListener.isUpdated()){
-                    updateListener.actionPerformed(new ActionEvent(this,0,"GET"));
-                    temperature = updateListener.getTemperature();
-                    location = updateListener.getLocation();
-                    contentPane.setText("The temperature at "+location+" is temperature "+temperature+" degrees Fahrenheit.");
-                }
-                
-            }
-        }
+    }
 }
