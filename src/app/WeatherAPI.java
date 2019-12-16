@@ -23,9 +23,15 @@ public class WeatherAPI {
     }
 
     public double getWeather(String location){
-        CurrentWeather cwd = owm.currentWeatherByCityName(location);
-        weather = (cwd.getMainData.getTempMax()+cwd.getMainData.getTempMin())/2.0;
-        return weather;
+        CurrentWeather cwd = null;
+        try{
+            cwd = owm.currentWeatherByCityName(location);
+        }
+        catch(APIException e){
+            System.out.println(e.getMessage());
+            System.exit(0);
+        }
+        return (cwd.getMainData().getTempMax()+cwd.getMainData().getTempMin())/2.0;
     }
 
 

@@ -1,8 +1,6 @@
 package src.app;
 import javax.swing.Timer;
 
-import app.WeatherAppOutputField;
-
 import javax.swing.JFrame;
 import java.awt.Container;
 import java.awt.FlowLayout;
@@ -17,7 +15,7 @@ public class WeatherAppFrame extends JFrame implements ActionListener{
     private static final int HEIGHT = 300;
 
     //Content pane elements
-    private WeatherAPI weatherAPI = null;
+    private WeatherAPIDummy weatherAPI = null;
     private WeatherAppSearchBar searchBar = null;
     private WeatherAppSearchButton searchButton = null;
     private WeatherAppOutputField outputField = null;
@@ -28,7 +26,9 @@ public class WeatherAppFrame extends JFrame implements ActionListener{
 
     public WeatherAppFrame(){
 
-        weatherAPI = WeatherAPI.getInstance();
+        location = "London";
+
+        weatherAPI = WeatherAPIDummy.getInstance();
 
         setSize(WIDTH,HEIGHT);
 

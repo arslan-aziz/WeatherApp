@@ -1,4 +1,4 @@
-package app;
+package src.app;
 import javax.swing.JTextField;
 
 //perform all text field settings in this file
