@@ -1,6 +1,6 @@
 FROM frekele/ant:latest
 
-WORKDIR /app
+WORKDIR /application
 
 COPY src/ ./src
 COPY lib/ ./lib
