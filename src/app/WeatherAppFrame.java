@@ -1,5 +1,8 @@
 package src.app;
 import javax.swing.Timer;
+
+import app.WeatherAppOutputField;
+
 import javax.swing.JFrame;
 import java.awt.Container;
 import java.awt.FlowLayout;
@@ -15,6 +18,8 @@ public class WeatherAppFrame extends JFrame{
         private WeatherAppActionListener updateListener = null;
 
         //instance variables for contentpane elements which update-->gui de
+        private int temperature;
+        private String location;
 
         public WeatherAppFrame(){
 
@@ -36,6 +41,9 @@ public class WeatherAppFrame extends JFrame{
             WeatherAppSearchButton searchButton = WeatherAppSearchButton.getInstance();
             contentPane.add(searchButton);
 
+            WeatherAppOutputField outputField = WeatherAppOutputField.getInstance();
+            contentPane.add(outputField);
+
             UpdateTimer timer = UpdateTimer.getInstance();
             timer.start();
 
@@ -46,8 +54,9 @@ public class WeatherAppFrame extends JFrame{
             while(true){
                 if(updateListener.isUpdated()){
                     updateListener.actionPerformed(new ActionEvent(this,0,"GET"));
-                    updateListener.getParams();
-                    gui.update();
+                    temperature = updateListener.getTemperature();
+                    location = updateListener.getLocation();
+                    contentPane.setText("The temperature at "+location+" is temperature "+temperature+" degrees Fahrenheit.");
                 }
                 
             }

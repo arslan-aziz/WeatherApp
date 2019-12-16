@@ -6,7 +6,8 @@ import java.awt.event.ActionListener;
 public class WeatherAppActionListener implements ActionListener{
 
     private static WeatherAppActionListener actionListener = null;
-
+    private int temperature;
+    private String location;
     private boolean updated;
 
     private WeatherAppActionListener(){
@@ -28,6 +29,7 @@ public class WeatherAppActionListener implements ActionListener{
                 updated = false;
             break;
             case "SearchBar":
+                
             break;
             case "SearchButton":
             break;
@@ -40,5 +42,12 @@ public class WeatherAppActionListener implements ActionListener{
 
     public boolean isUpdated(){
         return updated;
+    }
+
+    public int getTemperature(){
+        return temperature;
+    }
+    public String getLocation(){
+        return location;
     }
 }
